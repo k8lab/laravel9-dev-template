@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  workspace:
+    build:
+      context: ./docker/workspace
+      args:
+        TIME_ZONE: ${TIME_ZONE-UTC}
+    tty: true
+    stdin_open: true
+    ports:
+      - 5173:5173
+    volumes:
+      - ../:/var/www
+      - ./docker/workspace/config/php.ini:/usr/local/etc/php/conf.d/99-php.ini
+    working_dir: /var/www
+  nginx:
+    build:
+      context: ./docker/nginx
+    ports:
+      - 8080:80
+      - 8443:443
+    volumes:
+      - ./docker/nginx/config:/etc/nginx/conf.d
+      - ../.docker/nginx/log:/var/log/nginx
+      - ../:/var/www
+    environment:
+      - TZ=${TIME_ZONE-UTC}    
+  db:
+    build:
+      context: ./docker/postgres
+      args:
+        TIME_ZONE: ${TIME_ZONE-UTC}
+    tty: true
+    stdin_open: true
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_PASSWORD=laravel
+      - POSTGRES_USER=laravel
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --locale=ja_JP.UTF-8
+      - TZ=${TIME_ZONE-UTC}
+    volumes:
+      - ../.docker/postgres:/var/lib/postgresql/data
+      

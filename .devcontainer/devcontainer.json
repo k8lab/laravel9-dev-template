@@ -1,0 +1,22 @@
+{
+    "name": "Laravel Dev Template",
+    "dockerComposeFile": [
+        "docker-compose.yml"
+    ],
+    "service": "workspace",
+	"workspaceFolder": "/var/www/src",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"xdebug.php-debug",
+				"bmewburn.vscode-intelephense-client",
+				"neilbrayfield.php-docblocker",
+				"MehediDracula.php-namespace-resolver",
+				"mhutchie.git-graph",
+				"eamodio.gitlens",
+				"PKief.material-icon-theme",
+				"vue.volar"
+			]
+		}
+	}
+}
