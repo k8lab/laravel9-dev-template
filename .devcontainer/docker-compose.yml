@@ -9,7 +9,7 @@ services:
     tty: true
     stdin_open: true
     ports:
-      - 5173:5173
+      - ${VIET_PORT-5173}:${VIET_PORT-5173}
     volumes:
       - ../:/var/www
       - ./docker/workspace/config/php.ini:/usr/local/etc/php/conf.d/99-php.ini
@@ -18,8 +18,8 @@ services:
     build:
       context: ./docker/nginx
     ports:
-      - 8080:80
-      - 8443:443
+      - ${HTTP_PORT-80}:80
+      - ${HTTPS_PORT-443}:443
     volumes:
       - ./docker/nginx/config:/etc/nginx/conf.d
       - ../.docker/nginx/log:/var/log/nginx
@@ -34,7 +34,7 @@ services:
     tty: true
     stdin_open: true
     ports:
-      - 5433:5432
+      - ${DB_PORT-5432}:5432
     environment:
       - POSTGRES_PASSWORD=laravel
       - POSTGRES_USER=laravel
