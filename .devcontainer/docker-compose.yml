@@ -9,7 +9,7 @@ services:
     tty: true
     stdin_open: true
     ports:
-      - ${VIET_PORT-5173}:${VIET_PORT-5173}
+      - ${VITE_PORT-5173}:${VITE_PORT-5173}
     volumes:
       - ../:/var/www
       - ./docker/workspace/config/php.ini:/usr/local/etc/php/conf.d/99-php.ini
